@@ -1,0 +1,51 @@
+#Whitebox{
+    background-color: rgb(243, 246, 255);
+    width: 1000px;
+    height: 500px;
+    transform: translate(350px, 250px);
+    border-radius: 5%;
+}
+
+#signin{
+    transform: translate(400px, -200px);
+}
+
+#reject{
+    color:red;
+    transform: translate(1166px, -325px);
+}
+
+#create{
+    background-color: rgb(30, 0, 255);
+    color:rgb(255, 255, 255);
+    width: 125px;
+    height: 40px;
+    transform: translate(400px, -90px);
+    border-radius: 20%;
+}
+
+#email{
+    border-color: bisque;
+    width: 500px;
+    height: 50px;
+    transform: translate(800px, -320px);
+}
+
+#submit{
+    background-color: blue;
+    color:white;
+    width: 100px;
+    height: 40px;
+    transform: translate(670px, -90px);
+    border-radius: 20%;
+}
+
+#forgot{
+    color:blue;
+    transform: translate(1000px, 200px);
+}
+
+#phone{
+    color:rgb(0, 0, 0);
+    transform: translate(800px, -140px);
+}

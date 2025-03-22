@@ -1,0 +1,62 @@
+#Whitebox{
+    background-color: rgb(243, 246, 255);
+    width: 1000px;
+    height: 1000px;
+    transform: translate(350px, 250px);
+    border-radius: 5%;
+}
+
+#title{
+    transform:translate(750px, -780px);
+}
+
+#text{
+    transform: translate(0, 130px);
+}
+#username{
+    width:500px;
+    height:40px;
+    transform: translate(550px, -730px);
+}
+
+#email{
+    width:500px;
+    height:40px;
+    transform: translate(550px, -670px);
+}
+
+#password{
+    width:500px;
+    height:40px;
+    transform: translate(550px, -617px);
+}
+
+#usertext{
+    transform:translate(550px, -781px);
+}
+
+#etext{
+    transform:translate(550px, -716px);
+}
+
+#passtext{
+    transform:translate(550px, -650px);
+}
+
+#whole{
+    transform: translate(0px, -30px);
+}
+
+#make{
+    background-color: blue;
+    color:white;
+    width: 100px;
+    height: 40px;
+    transform: translate(550px, -570px);
+    border-radius: 20%;
+}
+
+#reject{
+    color:red;
+    transform: translate(553px, -770px);
+}

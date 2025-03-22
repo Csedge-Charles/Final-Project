@@ -1,0 +1,12 @@
+{
+    "_default": {
+        "1": {
+            "email": "charlesshao@gmail.com",
+            "password": "compsci"
+        },
+        "2": {
+            "email": "goodwill@csedge.org",
+            "password": "computer"
+        }
+    }
+}
