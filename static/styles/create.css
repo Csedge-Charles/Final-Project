@@ -13,11 +13,6 @@
 #text{
     transform: translate(0, 130px);
 }
-#username{
-    width:500px;
-    height:40px;
-    transform: translate(550px, -730px);
-}
 
 #email{
     width:500px;
@@ -32,7 +27,7 @@
 }
 
 #usertext{
-    transform:translate(550px, -781px);
+    transform:translate(550px, -731px);
 }
 
 #etext{
@@ -40,7 +35,7 @@
 }
 
 #passtext{
-    transform:translate(550px, -650px);
+    transform:translate(550px, -690px);
 }
 
 #whole{

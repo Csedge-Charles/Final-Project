@@ -1,12 +1,18 @@
 from flask import Flask, render_template, request, redirect, url_for
 from tinydb import TinyDB, Query
+import random
+
+url_list = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0']
+
 
 
 
 
 db = TinyDB("./db.json")
 personal = Query()
+
 import func
+
 
 
 def getEmail():
@@ -14,12 +20,21 @@ def getEmail():
     for i in db.all():
         EmailList.append(i['email'])
     return EmailList
+
 def findPass(email):
     for i in db.all():
         if i['email'] == email:
             return str(i['password'])
-
-print(findPass('charlesshao@gmail.com'))
+        
+def findKey(email):
+    for i in db.all():
+        if i['email'] == email:
+            return str(i['key'])
+        
+def findActivity(key):
+    for i in db.all():
+        if i['key'] == key:
+            return str(i['activity'])
 
 app = Flask(__name__)
 
@@ -39,20 +54,24 @@ def success():
 @app.route("/create-account", methods=['POST', 'GET'])
 def create():
     if request.method == 'POST':
-        global username
         global email
         global password
-        username = request.form['username']
+        global key
+        global activity
+        global updater
+        
+        updater = ""
+        activity = updater
         email = request.form['email']
         password = request.form['password']
-        db.insert({'email': email, 'password':password})
-        print(password)
-        if func.checker(email):
-            print("yes")
+        if email not in getEmail():
+            key = f'{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}{random.choice(url_list)}'
+            db.insert({'email': email, 'password':password, 'key': key, "activity": activity})
             return redirect('/', code=302)
         else:
-            print("no")
-            return render_template('create.html', wrong='Invalid email address', email=email, password=password, username=username)
+            if email in getEmail():
+                print(getEmail())
+                return render_template('create.html', wrong='username is already used', email=email, password=password)
     return render_template('create.html', wrong='')
 
 
@@ -64,23 +83,31 @@ def create():
 @app.route('/password', methods=['POST', 'GET'])
 
 def password():
+    global inputs
     if request.method == 'POST':
         password = request.form['password']
-        print(password)
         if request.form['password'] == findPass(email):
-            global username
-            username = 'Admin'
-            return redirect('/home', code=302)
+            inputs = []
+            key = findKey(email)
+            return redirect(url_for('home', key=key), code=302)
         else:
             return render_template('password.html', wrong='Password incorrect', reset=request.form['password'])
     return render_template('password.html', wrong='')
 
-@app.route("/home", methods=['POST', 'GET'])
+@app.route("/home/<key>", methods=['POST', 'GET'])
 
-def home():
+
+
+def home(key):
+    global updater
+    inputs = findActivity(key).split()
     if request.method == "POST":
+        updater = findActivity(key)
         schedule = request.form['submit']
-        print(schedule)
-    return render_template("index.html")
+        updater += f" {schedule}"
+        db.update({"activity": updater}, personal.email == email)
+        inputs.append(schedule)
+        return render_template("index.html", user=inputs)
+    return render_template("index.html", user=inputs)
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=75, debug=True)
