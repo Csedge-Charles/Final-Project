@@ -129,16 +129,25 @@ app = Flask(__name__)
 
 @app.route('/', methods=['POST', 'GET'])
 
-def success():
+def sign_in():
     if request.method == 'POST':
         global email
-        if request.form['submit'] == 'Create account':
+        global password
+        global key
+        
+        email = request.form['email']
+        password = request.form['password']
+        
+        if request.form.getlist('create') == ['Create Account']:
             return redirect('/create-account', code=302)
-        if request.form['email'] in getEmail():
-            email = request.form['email']
-            return redirect('/password', code=302)
-        return render_template('email.html', reject='Email does not exist', email=request.form['email'])
-    return render_template('email.html', reject='')
+        if email in getEmail():
+            if password == findValue(email, "password"):
+                key = findValue(email, "key")
+                return redirect(url_for('home', key=key), code=302)
+            return render_template("signin.html", reject2="Incorrect Password", email=email, password=password)
+        return render_template("signin.html",reject1="Username does not exist", reject2="Incorrect Password", email=email, password=password)
+    return render_template("signin.html")
+
 
 
 @app.route("/create-account", methods=['POST', 'GET'])
@@ -165,22 +174,7 @@ def create():
                 return render_template('create.html', wrong='username is already used', email=email, password=password)
     return render_template('create.html', wrong='')
 
-@app.route('/password', methods=['POST', 'GET'])
-
-def password():
-    global inputs
-    if request.method == 'POST':
-        password = request.form['password']
-        if request.form['password'] == findValue(email, "password"):
-            inputs = []
-            key = findValue(email, "key")
-            return redirect(url_for('home', key=key), code=302)
-        else:
-            return render_template('password.html', wrong='Password incorrect', reset=request.form['password'])
-    return render_template('password.html', wrong='')
-
 @app.route("/home/<key>", methods=['POST', 'GET'])
-
 
 
 def home(key):

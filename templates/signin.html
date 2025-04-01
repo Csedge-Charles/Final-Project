@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: rgb(234, 240, 255);">
+    <div style="height: 700px; width: 700px; background-color: rgb(243, 246, 255); border-radius:20%; transform:translate(500px, 200px)" ></div>
+    <form action="{{ url }}" method="POST">
+        <div style="transform:translate(600px, -200px);">
+            <label style="font-size:20px">Username</label><br><br><input type="text" name="email" id="email" style="font-size: 20px; width:500px; height:30px" value="{{ email }}">
+       </div>
+        <div style="transform:translate(600px, -150px);">
+            <label style="font-size:20px">Password</label><br><br><input type="password" name="password" id="password" style="font-size: 20px; width:500px; height:30px" value="{{ password }}">
+        </div>
+        <div style="transform:translate(600px, -100px);">
+            <input type="submit" name="submit" id="make"  value="Sign in" style="height: 30px; width: 110px; transform:translate(280px); background-color:rgb(89, 133, 253); color:white">
+            <input type="submit" name="create" id="make"  value="Create Account" style="height: 30px; width: 110px; background-color:rgb(89, 133, 253); color:white">
+        </div>
+    </form>
+
+
+    <p style="font-size:60px; transform:translate(750px, -600px)">Sign in</p>
+    <p style="color:red; transform:translate(1020px, -490px)">{{ reject1 }}</p>
+    <p style="color:red; transform:translate(1020px, -400px)">{{ reject2 }}</p>
+</body>
+</html>
